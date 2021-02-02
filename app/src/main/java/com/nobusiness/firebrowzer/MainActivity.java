@@ -1,12 +1,13 @@
 package com.nobusiness.firebrowzer;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import static com.nobusiness.firebrowzer.R.id.WVB;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,9 +25,11 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetJavaScriptEnabled")
     public void Net(){
 
-        wv.findViewById(R.id.WVB);
+        WebView wv= (WebView)findViewById(WVB);
+        wv.setWebViewClient(new WebViewClient());
         wv.loadUrl("www.google.com");
         wv.getSettings().setJavaScriptEnabled(true);
         wv.getSettings().setAppCacheEnabled(true);
+
     }
 }
