@@ -1,6 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<WebView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/WVB">
-</WebView>
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="634dp"
+        android:orientation="vertical"
+
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="105dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/urlET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Enter url here"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                tools:ignore="HardcodedText,TextFields"
+                tools:importantForAutofill="no" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="top|left"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/Load"
+                    android:layout_width="107dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/load" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <WebView
+            android:id="@+id/WVB"
+            android:layout_width="match_parent"
+            android:layout_height="524dp" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
