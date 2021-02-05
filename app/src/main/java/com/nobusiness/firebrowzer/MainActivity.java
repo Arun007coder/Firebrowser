@@ -1,24 +1,20 @@
 package com.nobusiness.firebrowzer;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.webkit.WebChromeClient;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
-import android.webkit.WebSettings;
-import android.view.View.OnKeyListener;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.net.URL;
 import java.util.Objects;
 
+import static com.nobusiness.firebrowzer.R.id.Back;
+import static com.nobusiness.firebrowzer.R.id.Forward;
+import static com.nobusiness.firebrowzer.R.id.Home;
 import static com.nobusiness.firebrowzer.R.id.Load;
 import static com.nobusiness.firebrowzer.R.id.WVB;
 import static com.nobusiness.firebrowzer.R.id.urlET;
@@ -28,15 +24,26 @@ public class MainActivity extends AppCompatActivity {
     WebView wv;
     WebViewClient wvc;
     Button LD;
+    Button HM;
+    Button UP;
+    Button DN;
     EditText LW;
     WebChromeClient WCC;
     String url;
+    Boolean isSourcecodeLoaded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        LW = (EditText)findViewById(urlET);
         Button LD = (Button) findViewById(Load);
+        wv = (WebView)findViewById(WVB);
+        Button HM = (Button)findViewById(Home);
+        Button UP = (Button)findViewById(Forward);
+        Button DN = (Button)findViewById(Back);
+        wv.loadUrl("https://www.google.com");
+        LW.setText(wv.getUrl().toString());
 
         wv.setWebChromeClient(new WebChromeClient() {
             public void onProgressChanged(WebView view, int progress) {
@@ -44,20 +51,50 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        LD.setOnClickListener(new View.OnClickListener() {
+        if (isSourcecodeLoaded = false) {
+            LD.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+
+                    Net();
+                }
+
+
+            });
+        }
+
+        LD.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                sou();
+                isSourcecodeLoaded = true;
+                return false;
+            }
+        });
+
+        HM.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Net();
-            }
-
-
-        });
-        final GestureDetector gestureDetector = new GestureDetector(new GestureDetector.SimpleOnGestureListener() {
-            public void onLongPress(MotionEvent e) {
-                sou();
+                Home();
             }
         });
+
+        UP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                up();
+            }
+        });
+
+        DN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                down();
+            }
+        });
+
     }
 
 
@@ -79,6 +116,35 @@ public class MainActivity extends AppCompatActivity {
 
         LW.setText(wv.getUrl().toString());
 
+    }
+
+    public void Home(){
+        wv = (WebView)findViewById(WVB);
+        LW = (EditText)findViewById(urlET);
+        wv.loadUrl("https://www.google.com");
+        LW.setText("https://www.google.com");
+
+        isSourcecodeLoaded = false;
+    }
+
+    public void up(){
+        wv = (WebView)findViewById(WVB);
+        LW = (EditText)findViewById(urlET);
+        if (wv.canGoForward() == true){
+            wv.goForward();
+            LW.setText(wv.getUrl().toString());
+            isSourcecodeLoaded = false;
+        }
+    }
+
+    public void down(){
+        wv = (WebView)findViewById(WVB);
+        LW = (EditText)findViewById(urlET);
+        if (wv.canGoBack() == true){
+            wv.goBack();
+            LW.setText(wv.getUrl().toString());
+            isSourcecodeLoaded = false;
+        }
     }
 
     public void sou(){
