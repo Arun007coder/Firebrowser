@@ -1,3 +1,5 @@
 A simple web browser
 
-Only loads Google
+Now loads all webpages
+Edittext to write URL
+Progress shown in the load button
